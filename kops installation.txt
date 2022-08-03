@@ -23,7 +23,7 @@ Setup Kubernetes (K8s) Cluster on AWS Using KOPS
 
  	#Install wget if not installed
  	sudo apt install wget -y
- 	sudo wget https://github.com/kubernetes/kops/releases/download/v1.16.1/kops-linux-amd64
+ 	sudo wget https://github.com/kubernetes/kops/blob/master/permalinks/upgrade_kops.md#1.21.44
  	sudo chmod +x kops-linux-amd64
  	sudo mv kops-linux-amd64 /usr/local/bin/kops
  
@@ -41,11 +41,13 @@ Setup Kubernetes (K8s) Cluster on AWS Using KOPS
 	AmazonS3FullAccess
 	IAMFullAccess 
 	AmazonVPCFullAccess
-
+        AmazonRoute53FullAccess
 
 Then Attach IAM role to ubuntu server from Console Select KOPS Server --> Actions --> Instance Settings --> Attach/Replace IAM Role --> Select the role which
 You Created. --> Save.
 
+6) create DNS name in aws with Route53 with this command
+     aws route53 create-hosted-zone --name dev.example.net --caller-reference 1
 
 
 6) create an S3 bucket Execute below commond in KOPS Server use unique bucket name if you get bucket name exists error.
