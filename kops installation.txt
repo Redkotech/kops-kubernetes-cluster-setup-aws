@@ -23,7 +23,7 @@ Setup Kubernetes (K8s) Cluster on AWS Using KOPS
 
  	#Install wget if not installed
  	sudo apt install wget -y
- 	sudo wget https://github.com/kubernetes/kops/blob/master/permalinks/upgrade_kops.md#1.21.44
+ 	sudo wget curl -LO https://github.com/kubernetes/kops/releases/download/v1.20.0/kops-linux-amd64
  	sudo chmod +x kops-linux-amd64
  	sudo mv kops-linux-amd64 /usr/local/bin/kops
  
