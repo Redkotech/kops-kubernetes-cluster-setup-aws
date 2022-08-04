@@ -1,9 +1,8 @@
 Creating a cluster
-###
-#!/bin/bash
-#1) Create Ubuntu EC2 instance
 
-Create an IAM role from Consloe or CLI with below Policies.
+#1) Create Ubuntu EC2 instance in AWS
+
+### Create an IAM role from Consloe or CLI with below Policies.
 
 	AmazonEC2FullAccess 
 	AmazonS3FullAccess
@@ -14,7 +13,9 @@ Create an IAM role from Consloe or CLI with below Policies.
 Then Attach IAM role to ubuntu server from Console Select KOPS Server --> Actions --> Instance Settings --> Attach/Replace IAM Role --> Select the role which
 You Created. --> Save.
 
-#2) install AWSCLI
+#!/bin/bash
+
+### install AWSCLI
 
  sudo apt update -y
  sudo apt install unzip wget -y
@@ -31,31 +32,33 @@ You Created. --> Save.
   sudo mv kops-linux-amd64 /usr/local/bin/kops
   
 ###  Create an S3 bucket to store your clusters state
+	aws s3 mb s3://nubonglegah.k8.local
+	aws s3 ls
 
 ### Create a route53 domain for your cluster 
- aws route53 create-hosted-zone --name <<redekotech.link>> --caller-reference 1.
+     aws route53 create-hosted-zone --name <<redekotech.link>> --caller-reference 1.
   OR can be done maually in AWS 
 
 ### Build your cluster configuration
   kops create cluster --zones=us-east-1c <<redekotech.link>>
 #It prints commands you can use to explore further:
 
-List your clusters with: kops get cluster
-Edit this cluster with: kops edit cluster redekotech.link
-Edit your node instance group: kops edit ig --name=redekotech.link nodes
-Edit your master instance group: kops edit ig --name=redekotech.link master-us-east-1c  
+   List your clusters with: kops get cluster
+   Edit this cluster with: kops edit cluster redekotech.link
+   Edit your node instance group: kops edit ig --name=redekotech.link nodes
+   Edit your master instance group: kops edit ig --name=redekotech.link master-us-east-1c  
   
   
 ### Create the cluster in AWS
-kops update cluster redekotech.link --yes
+   kops update cluster redekotech.link --yes
 
 ### confirm cluster
- kubectl get nodes
+  kubectl get nodes
   
 ## To avoid username & password by cluster at Kubectl get nodes
-kops export kubecfg --admin
+   kops export kubecfg --admin
   
 ###To delete your cluster: 
-kops delete cluster <<redekotech.link>> --yes    
+   kops delete cluster <<redekotech.link>> --yes    
    
   
