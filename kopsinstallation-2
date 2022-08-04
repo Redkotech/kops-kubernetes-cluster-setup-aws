@@ -1,0 +1,35 @@
+Creating a cluster
+
+###  Install kops
+  sudo curl -LO https://github.com/kubernetes/kops/releases/download/v1.20.0/kops-linux-amd64
+  chmod +x kops-linux-amd64
+  sudo mv kops-linux-amd64 /usr/local/bin/kops
+  
+###  CreCreate an S3 bucket to store your clusters state
+
+### Create a route53 domain for your cluster 
+ aws route53 create-hosted-zone --name <<redekotech.link>> --caller-reference 1.
+  OR can be done maually in AWS 
+
+### Build your cluster configuration
+  kops create cluster --zones=us-east-1c <<redekotech.link>>
+#It prints commands you can use to explore further:
+
+List your clusters with: kops get cluster
+Edit this cluster with: kops edit cluster redekotech.link
+Edit your node instance group: kops edit ig --name=redekotech.link nodes
+Edit your master instance group: kops edit ig --name=redekotech.link master-us-east-1c  
+  
+  
+### Create the cluster in AWS
+kops update cluster redekotech.link --yes
+
+### confirm cluster
+ kubectl get nodes
+  
+## To avoid username & password by cluster at Kubectl get nodes
+kops export kubecfg --admin
+  
+    
+   
+  
