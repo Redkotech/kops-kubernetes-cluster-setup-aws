@@ -3,6 +3,17 @@ Creating a cluster
 #!/bin/bash
 #1) Create Ubuntu EC2 instance
 
+Create an IAM role from Consloe or CLI with below Policies.
+
+	AmazonEC2FullAccess 
+	AmazonS3FullAccess
+	IAMFullAccess 
+	AmazonVPCFullAccess
+ AmazonRoute53FullAccess
+
+Then Attach IAM role to ubuntu server from Console Select KOPS Server --> Actions --> Instance Settings --> Attach/Replace IAM Role --> Select the role which
+You Created. --> Save.
+
 #2) install AWSCLI
 
  sudo apt update -y
@@ -19,7 +30,7 @@ Creating a cluster
   chmod +x kops-linux-amd64
   sudo mv kops-linux-amd64 /usr/local/bin/kops
   
-###  CreCreate an S3 bucket to store your clusters state
+###  Create an S3 bucket to store your clusters state
 
 ### Create a route53 domain for your cluster 
  aws route53 create-hosted-zone --name <<redekotech.link>> --caller-reference 1.
@@ -44,6 +55,7 @@ kops update cluster redekotech.link --yes
 ## To avoid username & password by cluster at Kubectl get nodes
 kops export kubecfg --admin
   
-    
+###To delete your cluster: 
+kops delete cluster <<redekotech.link>> --yes    
    
   
